@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users Demo</title>
+</head>
+<body>
+<div>
+    <h3 th:if="${users.size() <= 0}">
+        There isn't any user yet, but...
+        you can <a href="/users/create">create</a> one
+    </h3>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Profession</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="user:${users}">
+            <td th:text="${user.getName()}"></td>
+            <td th:text="${user.getAge()}"></td>
+            <td th:text="${user.getProfession()}"></td>
+            <td>
+                <a th:href="@{/users/edit(id=${user.getId()})}"
+                   class="btn btn-primary">Edit</a>
+                <form th:method="POST" th:action="@{'/users/delete?id=' + ${user.getId()}}">
+                    <button
+                            style="color: red"
+                            onclick="return confirm('Are you sure?')"
+                            type="submit">
+                        Delete
+                    </button>
+                </form>
+            </td>
+
+        </tr>
+
+    </table>
+    <a href="/users/create" th:if="${users.size() > 0}">Create NEW</a>
+
+</div>
+</body>
+</html>
