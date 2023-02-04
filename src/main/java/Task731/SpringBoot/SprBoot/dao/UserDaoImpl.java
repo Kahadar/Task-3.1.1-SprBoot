@@ -2,14 +2,13 @@ package Task731.SpringBoot.SprBoot.dao;
 
 import Task731.SpringBoot.SprBoot.model.User;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-@Transactional
+//@Transactional
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
@@ -38,13 +37,13 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     @Override
     public List<User> getUsers() {
         return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     @Override
     public User getUserById(Integer id) {
         return entityManager.find(User.class, id);
